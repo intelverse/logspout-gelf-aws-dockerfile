@@ -1,6 +1,6 @@
 FROM golang:alpine as build
-MAINTAINER timo.taskinen@vincit.fi
-LABEL maintainer "timo.taskinen@vincit.fi"
+MAINTAINER blinov.ivan@gmail.com
+LABEL maintainer "blinov.ivan@gmail.com"
 ENV LOGSPOUT_VERSION=3.2.6
 ENV LOGSPOUT_DOWNLOAD_SHA256=18e2d79bec5d31cf467efc1fddccc0257adacd30391d28f299a1bfa7bb9d8383
 RUN mkdir -p /go/src
@@ -17,7 +17,7 @@ RUN curl -fSL -o logspout.tar.gz "https://github.com/gliderlabs/logspout/archive
     && mv logspout-${LOGSPOUT_VERSION} /go/src/github.com/gliderlabs/logspout
 
 WORKDIR /go/src/github.com/gliderlabs/logspout
-RUN echo 'import ( _ "github.com/micahhausler/logspout-gelf" )' >> /go/src/github.com/gliderlabs/logspout/modules.go
+RUN echo 'import ( _ "github.com/intelverse/logspout-gelf-for-aws" )' >> /go/src/github.com/gliderlabs/logspout/modules.go
 RUN go get -d -v ./...
 RUN go build -v -ldflags "-X main.Version=$(cat VERSION)" -o ./bin/logspout
 
